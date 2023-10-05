@@ -1,0 +1,21 @@
+{% extends 'buyer_panel.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div>
+  <table>
+    <thead>
+    <th>Breed</th>
+    <th>Age</th>
+    <th>Medical Certificate</th>
+    </thead>
+    {% for i in pets %}
+    <tbody>
+    <td>{{ i.breed }}</td>
+    <td>{{ i.age }}</td>
+    <td>{{ i.file }}</td>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

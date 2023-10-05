@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login_page</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="frame1">
+        <div class="div1">
+            <div class="icon1">
+                <i class="fa-solid 	fas fa-dog" style="color: #da8a1b;font-size: 50px; "></i>
+            </div>
+            <form class="mb-3" method="post" action="login_view" style="padding-left: 70px; padding-top: 45px;">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" name="uname" placeholder="Username"
+                        style="height:30px; width:200px;">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" name="pass" placeholder="Password"
+                        style="height:30px; width:200px;">
+                </div>
+                <div class="div2">
+                    <button type="submit" class="btn"><a>sign up</a></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    </div>
+    <style>
+        * {
+            padding: 2px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        .frame1 {
+            background-image: url("https://vistapointe.net/images/pets-8.jpg");
+            width: 100%;
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .div1 {
+            width: 360px;
+            height: 500px;
+            background-color: rgba(151, 150, 149, 0.683);
+            border-radius: 10px;
+
+        }
+
+        .icon1 {
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .div2 {
+            text-align: center;
+            padding-top: 30px;
+            padding-left: 10px;
+            padding-right: 80px;
+        }
+
+        .inpt {
+            text-align: center;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            background-color: transparent;
+            border-radius: 7px;
+            border: 2px solid rgb(43, 42, 42);
+        }
+
+        .btn {
+            text-align: center;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            border-radius: 10px;
+            background-color: rgb(235, 135, 35);
+            border: none;
+            color: white;
+        }
+
+        .div3 {
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .anger {
+            color: white;
+        }
+
+        .para {
+            color: white;
+        }
+
+        hr {
+            width: 300px;
+            margin-left: 30px;
+        }
+
+        .para:hover {
+            color: rgb(0, 0, 0);
+        }
+
+        .anger:hover {
+            color: black;
+        }
+    </style>
+
+
+</body>
+
+</html>

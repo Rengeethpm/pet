@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="padding-top:30px; background-color:gray; height:100vh;" >
+  <table width="100%" border="2" bgcolor="white">
+    <thead style="text-align:center;">
+    <th>Breed</th>
+    <th>Age</th>
+    <th>Medical Certificate</th>
+    </thead>
+    {% for i in data %}
+    <tbody>
+    <tr style="text-align:center;">
+        <td>{{ i.breed }}</td>
+        <td>{{ i.age }}</td>
+        <td><a href="{{ i.medical_certificate.url }}" download="">{{i.medical_certificate}}</a></td>
+    </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+</body>
+<style>
+  tr:hover {background-color: white;}
+  th, td {
+  border: 3px solid;
+}
+
+</style>
+</html>

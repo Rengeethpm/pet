@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand text-warning" href="#">Anipat</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active text-warning" aria-current="page" href="{% url 'pet_register' %}">Add Pets</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                      <li><a class="dropdown-item" href="#">Change Password</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item" >
+                    <a class="nav-link text-warning" href="#">Logout</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success text-warning" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+          <div class="container-fluid bg-secondary" style="height: 500px; width: 100%; padding-top:30px;">
+            <div class="container mt-4">
+               <table class="table table-striped table-bordered table-hover">
+              <thead style="text-align:center;">
+               <th>Breed</th>
+               <th>Age</th>
+               <th>Medical Certificate</th>
+               <th>Edit</th>
+               <th>Delete</th>
+               </thead>
+               {% for i in pets %}
+               <tbody>
+               <tr style="text-align:center;" >
+                 <td>{{ i.breed }}</td>
+                 <td>{{ i.age }}</td>
+                 <td><a href="{{ i.medical_certificate.url }}" download="">{{i.medical_certificate}}</a></td>
+                 <td><a class="btn btn-success" href="{% url 'pet_update' i.id %}">Edit</a></td>
+                 <td>
+                    <form action="{% url 'pet_delete' i.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit">Delete</button>
+                    </form>
+                 </td>
+               </tr>
+               </tbody>
+               {% endfor %}
+            </table>
+            </div>
+
+
+
+
+          </div>
+          <footer class="text-center text-white" style="background-color: black">
+            <div class="container p-4">
+
+              <section class="">
+                <div class="row">
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light">
+                      <img
+                        src="https://hips.hearstapps.com/hmg-prod/images/small-dogs-maltese-1563779438.jpg"
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        src="https://www.rd.com/wp-content/uploads/2021/06/GettyImages-1205998407-e1624731290663.jpg?fit=700%2C1024"
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        src="https://media.istockphoto.com/id/1065080212/photo/calico-maine-coon-cat-sitting-looking-up-in-bathroom-room-in-house-by-weight-scale-overweight.jpg?s=170667a&w=is&k=20&c=4P1rzt9MhjYffhnY5x7-5rz0ylLKvXFHEtyHvYMRLyE="
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        src="https://rabbitbreeders.us/wp-content/uploads/How-Bid-Do-Rabbits-Get.jpg"
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        src="https://cdn.fishtankadvisor.com/wp-content/uploads/2022/05/rosetail-halfmoon-bettas.jpeg"
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        src="data:image/jpeg;base64,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"
+                        class="w-100"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              © 2023 Copyright:
+              <a class="text-white" href="https://mdbootstrap.com/">Anipat.com</a>
+            </div>
+
+          </footer>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+<style>
+tr:hover {background-color: white;}
+  th, td {
+  border: 3px solid;
+}
+
+</style>
+
+</html>
