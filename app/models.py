@@ -19,6 +19,7 @@ class Pet(models.Model):
     breed = models.CharField(max_length=25)
     age = models.IntegerField(null=False)
     medical_certificate = models.FileField()
+    is_adopted = models.BooleanField(default=False)
 
 
     def __str__(self):

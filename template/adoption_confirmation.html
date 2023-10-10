@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Adoption Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+ <div style="width:100%; height:100vh; background-color:orange;">
+   <div style="padding-left:40%; ">
+     <h1 style="padding-top:20%;">Adoption Confirmation</h1>
+     <p>Congratulations! You have successfully adopted a pet.</p>
+     <p>Details of your adopted pet:</p>
+
+     <ul>
+         <li><strong>Breed:</strong> {{ pets.breed }}</li>
+         <li><strong>Age:</strong> {{ pets.age }}</li>
+         <li><strong>Medical Certificate: </strong><a href="{{ pets.medical_certificate.url }}" download="">{{pets.medical_certificate}}</a></li>
+     </ul>
+
+     <p>Thank you for giving a loving home to {{ pet.name }}!</p>
+
+     <a href="{% url 'buyer_panel' %}">Back to Pet List</a>
+   </div>
+ </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

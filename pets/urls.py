@@ -34,7 +34,10 @@ urlpatterns = [
     path('seller_panel', views.seller_panel, name='seller_panel'),
     path('Logout', views.Logout, name='Logout'),
     path('buyer_profile/<int:id>/', views.buyer_profile, name='buyer_profile'),
-    path('buyer_update/<int:id>/', views.buyer_update, name='buyer_update')
+    path('buyer_update/<int:id>/', views.buyer_update, name='buyer_update'),
+    path('buy_pet/<int:id>', views.buy_pet, name='buy_pet'),
+    path('adoption_confirmation', views.adoption_confirmation, name='adoption_confirmation')
+
 
 
 

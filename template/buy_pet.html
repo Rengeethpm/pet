@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Adopt a Pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+
+ {% for pet in pet %}
+    <p><strong>Breed:</strong> {{ pet.breed }}</p>
+    <p><strong>Age:</strong> {{ pet.age }}</p>
+    <p><strong>Description:</strong> {{ pet.file }}</p>
+
+ {% endfor %}
+
+    {% if pet.is_adopted %}
+        <p>This pet has already been adopted.</p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Confirm Adoption">
+        </form>
+    {% endif %}
+
+    <a href="{% url 'pet_view' %}">Back to Pet List</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

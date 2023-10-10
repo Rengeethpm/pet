@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from .forms import BuyerRegisterForm, PetRegisterForm, BuyerEditForm
 from .models import Pet, Register
-from app.forms import BuyerRegisterForm, PetRegisterForm
+
 
 
 # Create your views here.
@@ -17,14 +18,15 @@ def buyer_register(request):
     register_form = BuyerRegisterForm()
     if request.method == 'POST':
         register_form = BuyerRegisterForm(request.POST)
-        if register_form.is_valid():
-            user=register_form.save(commit= False)
-            user.is_buyer = True
-            user.save()
-            print(user)
-            return render(request, 'login_form.html')
-        else:
-            return HttpResponse("error")
+        try:
+            if register_form.is_valid():
+                user=register_form.save(commit= False)
+                user.is_buyer = True
+                user.save()
+                print(user)
+                return render(request, 'login_form.html')
+        except Exception as e:
+            return HttpResponse(f"Error occurred during registration: {e}")
     else:
         return render(request, 'buyer_register.html', {'register_form': register_form})
 
@@ -33,7 +35,8 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('uname')
         password = request.POST.get('pass')
-        user = authenticate(username=username, password=password)
+        user = Register.objects.get(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             if user.is_buyer == True:
@@ -109,66 +112,48 @@ def buyer_profile(request,id):
     print(buyer)
     return render(request, 'buyer_profile.html', {'buyer': buyer})
 
-def buyer_update(request, id):
-    buyer = Register.objects.get(id=id)
+def buyer_update(request,id):
+    customer = Register.objects.get(id=id)
     if request.method == 'POST':
-        form = BuyerRegisterForm(request.POST or None, instance=buyer)
+        form = BuyerRegisterForm(request.POST or None, instance=customer)
         if form.is_valid():
             form.save()
-            return redirect(buyer_panel)
+            return redirect('buyer_panel')
     else:
-        form = BuyerRegisterForm(instance=buyer)
+        form = BuyerEditForm(instance=customer)
     return render(request,'buyer_update.html',{'form':form})
 
 
 
-def pet_detail(request, pet_id):
-    # Get the selected pet or return a 404 page if the pet doesn't exist
-    pet = object.get(Pet, id=pet_id)
 
-    context = {
-        'pet': pet,
-    }
+def buy_pet(request,id):
+    # Retrieve the pet using its ID, or return a 404 error if not found
+    pets = Pet.objects.get(id=id)
 
-    return render(request, 'pet_detail.html', context)
+    if request.method == 'POST':
+        # Handle the purchase process here, e.g., marking the pet as adopted
+        if not pets.is_adopted:
+            # Mark the pet as adopted (or set appropriate attributes)
+            pets.is_adopted = True
+            pets.save()
+            # You can also associate the pet with the user who adopted it, if needed
+
+            # Redirect to a confirmation page or any other appropriate page
+            return render(request,'adoption_confirmation.html',{'pets':pets})  # Define this URL pattern
+        else:
+            # Pet is already adopted, handle this case appropriately
+            return HttpResponse("This pet has already been adopted.")
+    else:
+        # Display the pet's details and a form to confirm the purchase
+        return render(request, 'buy_pet.html', {'pets': pets})
+
+
+def adoption_confirmation(request,id):
+    pets = Pet.objects.filter(id=id)
+    return render(request, 'adoption_confirmation.html',{'pets':pets})
 
 
 
-# def purchase_pet(request, pet_id):
-#     try:
-#         pet = Pet.objects.get(id=pet_id)
-#
-#         # Check if the pet is available for purchase
-#         if not pet.is_available:
-#             return render(request, 'pet_not_available.html')  # Create a template for this scenario
-#
-#         user = request.user
-#
-#         # Check if the user has enough funds to purchase the pet
-#         if user.balance < pet.price:
-#             return render(request, 'insufficient_funds.html')  # Create a template for this scenario
-#
-#         # Deduct the pet's price from the user's account balance
-#         user.balance -= pet.price
-#         user.save()
-#
-#         # Mark the pet as no longer available
-#         pet.is_available = False
-#         pet.save()
-#
-#         # Create a purchase record
-#         purchase = Purchase(user=user, pet=pet)
-#         purchase.save()
-#
-#         return render(request, 'purchase_success.html')  # Create a template for this scenario
-#
-#     except Pet.DoesNotExist:
-#         return render(request, 'pet_not_found.html')  # Create a template for this scenario
-#
-#
-#
-#
-#
 
 
 

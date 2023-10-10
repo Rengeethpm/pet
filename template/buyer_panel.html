@@ -29,7 +29,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'buyer_profile'  id=user.id %}">Profile</a></li>
-                      <li><a class="dropdown-item" href="{% url ' buyer_update' id=user.id %} ">Edit Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'buyer_update' id=user.id %}">Edit Profile</a></li>
                       <li><hr class="dropdown-divider"></li>
                     </ul>
                   </li>
@@ -51,6 +51,8 @@
                  <th>Breed</th>
                  <th>Age</th>
                  <th>Medical Certificate</th>
+                 <th>buy</th>
+
                  </thead>
                  {% for i in pets %}
                  <tbody style="text-align:center;">
@@ -58,6 +60,9 @@
                    <td>{{ i.breed }}</td>
                    <td>{{ i.age }}</td>
                    <td><a href="{{ i.medical_certificate.url }}" download="">{{i.medical_certificate}}</a></td>
+                   <td><button><a href="{% url 'buy_pet' i.id %}">Buy</a></button></td>
+
+
                  </tr>
 
 
